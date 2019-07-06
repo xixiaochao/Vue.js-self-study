@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据绑定</title>
+</head>
+<body>
+    <!-- mustache 可以做运算 取值 输出 三元 不能js写js语法-->
+    <div id="app">
+        {{msg}} {{1+1}}  {{info.a}}
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                info:{},
+                msg:'hello'
+            }
+        });
+    </script>
+</body>
+</html>
