@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向数据绑定原理（Object.defineProperty）</title>
+</head>
+<body>
+    <div id="app">
+        {{a}}
+        <input type="text" v-model="a">
+    </div>
+    
+    <input type="text" id="box">
+</body>
+<script src="node_modules/vue/dist/vue.js"></script>
+<!-- 双向数据绑定 -->
+<script>
+    // Vue ： 必须依托于页面中的元素；通过el获取元素；id需要加#; class加.;
+    let vm = new Vue({
+        el:"#app",
+        /**
+         * 双向数据绑定：Vue利用Object.definedProperty这个方法遍历data中所有的属性，给每一个属性增加setter方法和getter方法
+         * 当数据发生变化时，会触发setter方法，当获取数据时，会触发getter方法；
+         * Object.definedProperty在IE以下是不兼容的；vue是不兼容IE8及其以下；
+         * Obejct.definedProperty是es5新增的方法；data中的所有的属性最终被vm这个实例所代理
+         */
+        data:{
+            a:18
+        }
+    })
+</script>
+
+<!-- 双向数据绑定原理 -->
+<script>
+    /**
+     * definedProperty 是一个函数，是Object私有的方法
+     * 对obj这个对象的是name属性名，进行监控；当获取obj中name属性名的属性值时，会触发get函数；
+     * 当设置name属性值，会触发set函数
+     */
+    let obj = {};
+    Object.defineProperty(obj,"name",{
+        get(){
+            console.log(100);
+        },
+        set(val){
+            /**
+             * 当设置对象的name属性值时，会触发这个函数；当设置这个值时，会默认给set传一个参数，这个参数值是最新设置的那个值
+             */
+            console.log(val);
+        }
+    })
+</script>
+
+<!-- 属性增加监听者，数据被Vue实例代理 -->
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            a:18
+        }
+    })
+
+    for(var key in data){
+        /**
+         * 给data中每一个属性增加监听者，当数据发生变化时，会触发set方法，当视图变化时，通过DOM的事件监听，改变数据；
+         * 这些数据都会被Vue的实例所代理，当vm.a === vm.data.a;
+         */
+        Object.defineProperty(vm,key,{
+            get(){
+
+            },
+            set(){
+
+            }
+        })
+    }
+    vm.a = 19;
+</script>
+
+<!-- VUE利用DOM事件监听机制 -->
+<script>
+    let obj = {}; 
+    let temp = {}; // 第三方变量为了防止获取obj.name时出现无限循环；
+    //让对象中的值发生变化，那么input内容也跟着变化，当input框中值发生改变，对象的值也跟着变化；name
+    Object.defineProperty(obj,"name",{
+        get(){
+            return temp.name; // get 的返回值就是obj.name 的获取值
+        },
+        set(val){
+            temp.name = val;
+            box.value = val;
+        }
+    })
+    // 视图  影响数据
+    box.addEventListener("input",function(){
+        obj.name = this.value; // 把input框的值赋值给obj.name 属性
+    })
+</script>
+</html>
