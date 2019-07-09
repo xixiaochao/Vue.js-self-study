@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 循环谁就把它放在谁的身上 -->
+        <!-- vue 2.5 以上要求 必须在循环时 使用key属性 -->
+        
+        <!-- <div v-for="(fruit,index) in fruits" :key="index" :a="index">
+            {{fruit}} {{index}}
+            <div v-if="index%2">{{fruit}}</div>
+            <div v-else>{{index}}</div>
+        </div>
+        <div v-for="(value,key) in info">
+            {{value}}
+        </div> -->
+
+        <!-- <template v-for="i in 3" :key="i">
+            <div :key="i+'_1'" :a="i+'_1'">{{i}}</div>
+            <div :key="`${i}_1`" :a="`${i}_2`" a="{{i}}">{{i}}</div>
+        </template> -->
+
+        <!-- key可以用来区分元素 -->
+        <div v-if="flag">
+            <span>珠峰</span>
+            <input type="text" key="1"/>
+        </div>
+        <div v-else>
+            <span>架构</span>
+            <input type="text" key="2"/>
+        </div>
+        <!-- 尽量不要使用index作为key -->
+        <!-- 如果有唯一标识 尽量使用 唯一标识 -->
+
+        <li key="xiang">香蕉</li>
+        <li key="ping">苹果</li>
+        <li key="ju">桔子</li>
+
+        <li key="ju">桔子</li>
+        <li key="ping">苹果</li>
+        <li key="xiang">香蕉</li>
+
+    </div>
+</body>
+<script src="../../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{ // for value of [1,2,3]
+            fruits:['香蕉','苹果','桔子'],
+            info:{name:'席小超',age:24,address:'黑龙江'}
+        }
+    })
+</script>
+</html>

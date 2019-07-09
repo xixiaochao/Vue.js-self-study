@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{msg}} {{info.address}}
+    </div>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <!--  mvvm model view viewModel mvc model -->
+    <!-- 只要模板中使用了数据 必须在实例上声明 -->
+    <script>
+        // vm = viewModel
+        let vm = new Vue({
+            el:"#app",
+           // template:'<h1>hello world</h1>',
+            data:{ // 存数据
+                msg:'hello',
+                info:{xxx:'xxx'},
+                arr:[1,2,3,4]
+            }
+        })
+         
+        /** 
+         *  vue实例上的方法 
+         *   vm.
+         *      $set
+         *      $options
+         *      $nextTick
+         *      $watch
+         */
+        vm.arr = [5,6,7];// 数据变化后更新视图操作是异步执行的
+        vm.$nextTick(()=>{
+            console.log(vm.$set.innerHTML);
+            console.log(vm.$options);
+        })
+        vm.$watch('info.xxx',function(newValue,oldValue){
+            console.log(newValue,oldValue);
+        })
+        
+        //vm.info = {address:'world'};
+        //vm.info.address = 'world';
+        //vm.info.xxx = 'hello';
+        //把数据都代理给了vm
+        vm.$set(vm.info,'address','xc');
+    </script>
+</body>
+</html>

@@ -8,8 +8,15 @@
 </head>
 <body>
     <!-- mustache 可以做运算 取值 输出 三元 不能js写js语法-->
+    <!-- 只要使用vue的数据就需要先声明 在使用 -->
     <div id="app">
-        {{msg}} {{1+1}}  {{info.a}}
+        {{msg}}  <!-- data.msg -->
+        {{1+1}}  <!-- 数字运算 -->
+        {{info.a}}  <!-- info对象下不存在的值 -->
+        {{ {} }}  <!-- 空对象 -->
+        {{flag?1:2}}  <!-- 三元运算符-->
+        {{ (function(){return 100})() }}  <!-- 函数体 -->
+        {{msg+'123'}}  <!-- 字符串拼接 -->
     </div>
     <script src="./node_modules/vue/dist/vue.js"></script>
     <script>
@@ -17,7 +24,8 @@
             el:"#app",
             data:{
                 info:{},
-                msg:'hello'
+                msg:'hello',
+                flag:true
             }
         });
     </script>
