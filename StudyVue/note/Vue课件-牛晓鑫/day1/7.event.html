@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--v-on === @ -->
+    <!--如果不传递参数，则不要写括号会自动传入事件源，如果写括号了，要手动传入$event属性-->
+    <div @mousedown="fn($event,1)">
+        点我啊
+    </div>
+</div>
+<script src="./vue.js"></script>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        methods:{//methods的data中的数据会全部放到vm上，而且名字不能冲突，冲突会报错，methods总的this指向的都是实例
+            fn(event,a){
+                console.log(event);}
+        },
+        data:{
+            a:1
+        }
+    });
+</script>
+</body>
+</html>

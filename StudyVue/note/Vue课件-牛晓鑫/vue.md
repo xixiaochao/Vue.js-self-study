@@ -23,3 +23,30 @@ npm  run dev;webpack 会自动启动一个服务端口默认是8080；如果8080
 
 main  App.vue   components
 ```
+
+
+### vue 面试
+
+ - Object.defineProperty
+
+ beforcreat
+created   如果初始化页面在这里调接口
+
+computed
+watch 监听data 里得数据
+
+$setdata
+
+nuxt ：服务器渲染
+比如说：
+<zizujian  class=" " :refs="xc" :data="data"> </zizujian>
+父子组件怎么传值 
+  props{
+    data:dada
+}
+$event
+evetbus:事件车（兄弟组件传值）
+
+vuex  存出数据的
+     特点  刷新之后数据初始化
+     stord:   state.name=xc   mution(同步)  action（异步）   
