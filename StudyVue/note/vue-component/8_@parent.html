@@ -23,6 +23,18 @@
             <collapse-item title="vue">内容2</collapse-item>
             <collapse-item title="node">内容3</collapse-item>
         </collapse>
+        <hr/>
+        <collapse>
+            <collapse-item title="react">内容1</collapse-item>
+            <collapse-item title="vue">内容2</collapse-item>
+            <collapse-item title="node">内容3</collapse-item>
+        </collapse>
+        <hr/>
+        <collapse>
+            <collapse-item title="react">内容1</collapse-item>
+            <collapse-item title="vue">内容2</collapse-item>
+            <collapse-item title="node">内容3</collapse-item>
+        </collapse>
     </div>
 
     <script src="../../node_modules/vue/dist/vue.js"></script>
@@ -30,13 +42,16 @@
         Vue.config.productionTip = false //阻止启动生产消息，常用作指令。
         // 平级通信 $parent 获取父组件的实例 
         Vue.component('Collapse',{
+            mounted(){
+                console.log(this._uid);
+            },
             methods:{
                 cut(childId){// 只要儿子点击了 我就要知道当前点击的是谁
                     this.$children.forEach(child => {
                         if(child._uid !== childId){
                             child.show = false;
                         };
-                    })
+                    });
                 }
             },
             template:`<div class="warp">
@@ -56,7 +71,7 @@
                 }
             },
             template:`<div>
-                <div :id="'title'+_uid" @click="change">{{title}}</div>
+                <div :id="'title'+_uid" class="title" @click="change">{{title}}</div>
                 <div v-show="show">
                     <slot></slot>    
                 </div>
@@ -64,7 +79,11 @@
         });
         // 手风琴效果 折叠菜单效果
         let vm = new Vue({
-            el:"#app"
+            el:"#app",
+            mountes(){
+                console.log(this._uid);
+                
+            }
         });
     </script>
 </body>
